@@ -1,13 +1,12 @@
-#!/usr/bin/env python
-
 import os
 import sys
 from setuptools import setup, find_packages
 from fnmatch import fnmatchcase
 from distutils.util import convert_path
 
-standard_exclude = ('*.py', '*.pyc', '*~', '.*', '*.bak', '*.swp*')
+standard_exclude = ('*.pyc', '*~', '.*', '*.bak', '*.swp*')
 standard_exclude_directories = ('.*', 'CVS', '_darcs', './build', './dist', 'EGG-INFO', '*.egg-info')
+
 def find_package_data(where='.', package='', exclude=standard_exclude, exclude_directories=standard_exclude_directories):
     out = {}
     stack = [(convert_path(where), '', package)]
@@ -47,6 +46,8 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
 setup(name='docassemble.MotionTutorial',
       version='0.4',
       description=('A tutorial of basic Docassemble features.'),
+      long_description='# Docassemble Legal Motion Tutorial\r\nThis repository contains a skeleton package that can be used as the basis for your first guided interview in Docassemble that assembles a Microsoft Word document.\r\n\r\nYou can fork this repository to your own GitHub account.\r\n\r\nTo view the full tutorial, visit the [tutorial page](https://gblsma.github.io/docassemble-MotionTutorial/).\r\n',
+      long_description_content_type='text/markdown',
       author='Quinten Steenhuis',
       author_email='qsteenhuis@gbls.org',
       license='MIT',
@@ -54,7 +55,6 @@ setup(name='docassemble.MotionTutorial',
       packages=find_packages(),
       namespace_packages=['docassemble'],
       install_requires=[],
-      dependency_links=[],
       zip_safe=False,
       package_data=find_package_data(where='docassemble/MotionTutorial/', package='docassemble.MotionTutorial'),
      )
