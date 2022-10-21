@@ -1,18 +1,31 @@
 ---
+objects: 
+  - issue: DAList.using(object_type=DAObject, there_are_any=True, complete_attribute='name')
+---
+code: |
+  issue[i].name
+  issue[i].header
+  issue[i].intro
+  issue[i].law
+  issue[i].farg
+  issue[i].larg
+  issue[i].parg
+  issue[i].concl
+  issue[i].complete = True
+---
 metadata:
   title: |
-    Massachusetts Eviction Motion to Dismiss
+    Brief outline 
   short title: |
-    Motion to Dismiss
+    Brief
   description: |
-    This interview helps you file a motion to dismiss.
+    This interview helps you draft a brief.
   authors:
     - name: Samuel Pinero
       organization: Oak City Law LLP
 
   revision_date: 2022-10-19
 ---
-mandatory: True
 question: |
   Your documents are ready. Please print and file!
 subquestion: |
@@ -24,3 +37,63 @@ attachment:
 ---
 code: |
   answer = 2 + 2
+---
+question: |
+  Tenant Information
+fields:
+  - name of Tenant? : client.name.first
+  - Tenant Address? : client.address.address
+  - Tenant Phone? : client.phone
+---
+question: |
+  case information
+fields:
+  - County? : case.county
+  - Landlord? : case.plaintiff
+  - Docket number? : case.docket
+  - yes? : my_yesno_variable
+    datatype: yesno
+---
+question: |
+  ${capitalize(ordinal(i))} Issue presented? 
+fields:
+  - nolabel: issue[i].name
+    input type: area
+---
+question: |
+  Parts for ${ issue[i] } section of argument 
+fields:
+  - Header: issue[i].header
+    input type: area
+  - Introduction: issue[i].intro
+    input type: area
+  - Law: issue[i].law
+    input type: area
+  - Factual Argument: issue[i].farg
+    input type: area
+  - Legal Argument: issue[i].larg
+    input type: area
+  - Policy Argument: issue[i].parg
+    input type: area
+  - Conclusion: issue[i].concl
+    input type: area
+---
+
+question: |
+  Is there another issue presented? 
+yesno: issue.there_is_another
+---
+question: |
+  Are there issues presented?
+yesno: issue.there_are_any
+---
+
+mandatory: True
+question: |
+  Issues presented:
+subquestion: |
+  % for x in issue:
+  * ${ x } likes
+  ${ x.header.upper() }
+  % endfor
+    
