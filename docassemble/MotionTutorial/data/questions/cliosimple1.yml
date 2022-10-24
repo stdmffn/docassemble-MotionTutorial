@@ -1,0 +1,20 @@
+---
+modules:
+  .Clio
+---
+objects:
+  - Clio: ClioAuth.using(url_args=url_args)
+  - ClioWeb: DAWeb.using(base_url='https://app.clio.com/api/v4')
+---
+initial: True
+code: |
+  if not user_logged_in():
+    message("Clio integration", "Sorry, you must be logged in to test this interview.")
+  Clio.authorize(ClioWeb)
+---
+code: |
+  clinet_info = ClioWeb.get('users/who_am_i')
+---
+mandatory: True
+question: |
+  ${ clinet_info }
